@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PULARI | Feed Inventory</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f8f5;
+        }
+        .brand-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .brand-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .card {
+            border-radius: 12px;
+        }
+        footer {
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="bg-success text-white py-3 shadow-sm">
+    <div class="container text-center">
+        <div class="brand-title">Pulari Traders</div>
+        <div class="brand-subtitle">Olat, Kodakkad</div>
+    </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-success" href="{% url 'dashboard' %}">
+            PULARI
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_purchase' %}">Purchase</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_sale' %}">Sales</a>
+                </li>
+               
+               
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'customer_report' %}">Customer Report</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container my-4">
+    <div class="card shadow-sm p-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-white text-center text-muted py-3 shadow-sm">
+    © 2026 <strong>Pulari Traders</strong> | Feed Inventory Management System
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block scripts %}
+{% endblock %}
+
+</body>
+</html>

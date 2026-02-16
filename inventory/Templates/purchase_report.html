@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h4 class="text-success mb-3">Purchase Report</h4>
+
+    <!-- Filter Form -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label class="form-label">From Date</label>
+            <input type="date" name="start" class="form-control"
+                   value="{{ request.GET.start }}">
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label">To Date</label>
+            <input type="date" name="end" class="form-control"
+                   value="{{ request.GET.end }}">
+        </div>
+
+        <div class="col-md-3 align-self-end">
+            <button type="submit" class="btn btn-success">
+                Filter
+            </button>
+        </div>
+    </form>
+
+    <!-- Purchase Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-success">
+                <tr>
+                    <th>Date</th>
+                    <th>Supplier</th>
+                    <th>Feed</th>
+                    <th>Quantity</th>
+                    <th>Purchase Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for purchase in purchases %}
+                <tr>
+                    <td>{{ purchase.date }}</td>
+                    <td>{{ purchase.supplier.name }}</td>
+                    <td>{{ purchase.feed.name }}</td>
+                    <td>{{ purchase.quantity }}</td>
+                    <td>₹ {{ purchase.price }}</td>
+                    <td>₹ {{ purchase.total_amount }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center text-muted">
+                        No purchases found for selected dates
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Grand Total -->
+    <div class="text-end mt-3">
+        <h5>
+            Grand Total :
+            <span class="text-success">₹ {{ total_amount }}</span>
+        </h5>
+    </div>
+
+</div>
+
+{% endblock %}

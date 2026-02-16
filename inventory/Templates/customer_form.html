@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4 class="mb-3">Customer Form</h4>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.phone_number.label_tag }}
+        {{ form.phone_number }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.address.label_tag }}
+        {{ form.address }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.balance.label_tag }}
+        {{ form.balance }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'customer_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+{% endblock %}

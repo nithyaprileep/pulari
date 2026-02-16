@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4 class="mb-3">Add Feed</h4>
+
+<form method="POST">
+    {% csrf_token %}
+    
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.category.label_tag }}
+            {{ form.category }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.brand.label_tag }}
+            {{ form.brand }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.quantity.label_tag }}
+            {{ form.quantity }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.purchase_price.label_tag }}
+            {{ form.purchase_price }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.selling_price.label_tag }}
+            {{ form.selling_price }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.expiry_date.label_tag }}
+            {{ form.expiry_date }}
+        </div>
+
+        <div class="col-md-6 mb-3">
+            {{ form.supplier.label_tag }}
+            {{ form.supplier }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Feed</button>
+</form>
+
+{% endblock %}

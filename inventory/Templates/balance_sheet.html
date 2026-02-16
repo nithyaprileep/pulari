@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="text-center mb-4">Balance Sheet – Pulari Traders</h3>
+    <p class="text-center text-muted">Olat, Kodakkad</p>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow rounded-4 text-center">
+                <div class="card-body">
+                    <h6>Total Purchase</h6>
+                    <h4 class="text-danger">₹ {{ total_purchase }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow rounded-4 text-center">
+                <div class="card-body">
+                    <h6>Total Sales</h6>
+                    <h4 class="text-success">₹ {{ total_sales }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow rounded-4 text-center">
+                <div class="card-body">
+                    <h6>Profit / Loss</h6>
+                    {% if profit >= 0 %}
+                        <h4 class="text-success">₹ {{ profit }}</h4>
+                    {% else %}
+                        <h4 class="text-danger">₹ {{ profit }}</h4>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow rounded-4 text-center">
+                <div class="card-body">
+                    <h6>Customer Due</h6>
+                    <h4 class="text-warning">₹ {{ total_due }}</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card shadow rounded-4">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>Purchase Entry – Pulari Traders</h4>
+            <small>Supplier: SKM</small>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Feed</label>
+                        {{ form.feed }}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Quantity</label>
+                        {{ form.quantity }}
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="form-label">Rate</label>
+                        {{ form.rate }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Total Amount</label>
+                        {{ form.total_amount }}
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary px-5 rounded-pill">
+                        Save Purchase
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+const qty = document.getElementById("id_quantity");
+const rate = document.getElementById("id_rate");
+const total = document.getElementById("id_total_amount");
+
+function calculateTotal() {
+    if (qty.value && rate.value) {
+        total.value = (qty.value * rate.value).toFixed(2);
+    } else {
+        total.value = '';
+    }
+}
+
+qty.addEventListener("input", calculateTotal);
+rate.addEventListener("input", calculateTotal);
+</script>
+
+{% endblock %}

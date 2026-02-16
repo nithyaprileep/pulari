@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card shadow-lg rounded-4">
+        <div class="card-header bg-success text-white text-center">
+            <h4>Sales Entry – Pulari Traders</h4>
+            <small>Olat, Kodakkad</small>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label">Customer</label>
+                        {{ form.customer }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Feed Item</label>
+                        {{ form.feed }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Quantity</label>
+                        {{ form.quantity }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Rate</label>
+                        {{ form.rate }}
+                    </div>
+
+                    <div class="col-md-4">
+                        <label class="form-label">Total Amount</label>
+                        {{ form.total_amount }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Paid Amount</label>
+                        {{ form.paid_amount }}
+                    </div>
+
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success px-5 rounded-pill">
+                        Save Sale
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><script>
+(function () {
+
+    console.log("Sales JS loaded");
+
+    const feed = document.getElementById('id_feed');
+    const qty = document.getElementById('id_quantity');
+    const rate = document.getElementById('id_rate');
+    const total = document.getElementById('id_total_amount');
+
+    if (!feed || !qty || !rate || !total) {
+        console.error("Form fields not found", feed, qty, rate, total);
+        return;
+    }
+
+    feed.addEventListener('change', function () {
+        console.log("Feed changed:", this.value);
+
+        fetch('/ajax/feed-price/?feed_id=' + this.value)
+            .then(res => res.json())
+            .then(data => {
+                console.log("Price received:", data);
+                rate.value = data.price;
+                calculateTotal();
+            })
+            .catch(err => console.error("Fetch error:", err));
+    });
+
+    qty.addEventListener('input', calculateTotal);
+
+    function calculateTotal() {
+        const q = parseFloat(qty.value);
+        const r = parseFloat(rate.value);
+
+        if (!isNaN(q) && !isNaN(r)) {
+            total.value = (q * r).toFixed(2);
+        } else {
+            total.value = '';
+        }
+    }
+
+})();
+</script>
+
+
+{% endblock %}

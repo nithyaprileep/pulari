@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h4 class="mb-3">Feed List</h4>
+
+<a href="{% url 'add_feed' %}" class="btn btn-primary mb-3">Add Feed</a>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Stock</th>
+            <th>Selling Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for feed in feeds %}
+        <tr>
+            <td>{{ feed.name }}</td>
+            <td>{{ feed.category }}</td>
+            <td>{{ feed.brand }}</td>
+            <td>{{ feed.quantity }}</td>
+            <td>{{ feed.selling_price }}</td>
+            <td>
+                <a href="{% url 'update_feed' feed.id %}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{% url 'delete_feed' feed.id %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

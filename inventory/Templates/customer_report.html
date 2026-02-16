@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h4 class="text-success mb-3">Customer Ledger Report</h4>
+
+    <!-- Filter Form -->
+    <form method="get" class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <label>Select Customer</label>
+            <select name="customer" class="form-control" required>
+                <option value="">-- Select Customer --</option>
+                {% for c in customers %}
+                <option value="{{ c.id }}"
+                    {% if selected_customer and c.id == selected_customer.id %}
+                        selected
+                    {% endif %}
+                >
+                    {{ c.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label>From Date</label>
+            <input type="date" name="start" class="form-control"
+                   value="{{ request.GET.start }}">
+        </div>
+
+        <div class="col-md-3">
+            <label>To Date</label>
+            <input type="date" name="end" class="form-control"
+                   value="{{ request.GET.end }}">
+        </div>
+
+        <div class="col-md-2 align-self-end">
+            <button class="btn btn-success w-100">Generate</button>
+        </div>
+
+    </form>
+
+    {% if sales %}
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-success">
+                <tr>
+                    <th>Date</th>
+                    <th>Feed</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Paid</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td>{{ sale.date }}</td>
+                    <td>{{ sale.feed.name }}</td>
+                    <td>{{ sale.quantity }}</td>
+                    <td>₹ {{ sale.total_amount }}</td>
+                    <td>₹ {{ sale.paid_amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Summary -->
+    <div class="card mt-4 p-3 shadow-sm">
+        <div class="row">
+            <div class="col-md-4">
+                <strong>Total Sales:</strong> ₹ {{ total_sales }}
+            </div>
+            <div class="col-md-4">
+                <strong>Total Paid:</strong> ₹ {{ total_paid }}
+            </div>
+            <div class="col-md-4">
+                <strong>Balance:</strong>
+                {% if balance > 0 %}
+                    <span class="text-danger">₹ {{ balance }}</span>
+                {% else %}
+                    <span class="text-success">₹ 0</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

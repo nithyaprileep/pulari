@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 class="mb-4">Admin Dashboard</h3>
+
+<div class="row">
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3 text-center">
+            <h5>Feed Management</h5>
+            <a href="{% url 'feed_list' %}" class="btn btn-primary mt-2">
+                Manage Feeds
+            </a>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3 text-center">
+            <h5>Customer Management</h5>
+           <a href="{% url 'customer_list' %}" class="btn btn-success mt-2">
+    Manage Customers
+</a>
+
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+    <div class="card shadow-sm p-3 text-center border-primary">
+        <h5>Balance Sheet</h5>
+
+        {% if request.user.is_superuser %}
+        <a href="{% url 'balance_sheet' %}" 
+           class="btn btn-primary mt-2">
+            View Balance Sheet
+        </a>
+        {% else %}
+        <p class="text-danger mt-2">Admin Only</p>
+        {% endif %}
+    </div>
+</div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card shadow-sm p-3 text-center">
+            <h5>Reports</h5>
+            <li class="nav-item dropdown">
+    <a class="btn btn-primary dropdown-toggle ms-2"
+       href="#"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+        Reports
+    </a>
+
+    <ul class="dropdown-menu shadow">
+        <li>
+            <a class="dropdown-item" href="{% url 'sales_report' %}">
+                📊 Sales Report
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'purchase_report' %}">
+                📦 Purchase Report
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="{% url 'customer_report' %}">
+                👤 Customer Report
+            </a>
+        </li>
+    </ul>
+</li>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
