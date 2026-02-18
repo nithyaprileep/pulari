@@ -30,7 +30,7 @@ def add_purchase(request):
     else:
         form = PurchaseForm()
 
-    return render(request, 'purchase.html', {'form': form})
+    return render(request, 'inventory/purchase.html', {'form': form})
 
 
 from django.utils.timezone import now
@@ -60,7 +60,7 @@ def dashboard(request):
         'expiring_feeds': expiring_feeds,
     }
 
-    return render(request, 'dashboard.html', context)
+    return render(request, 'inventory/dashboard.html', context)
 from .forms import SaleForm
 def add_sale(request):
     if request.method == 'POST':
@@ -84,7 +84,7 @@ def add_sale(request):
     else:
         form = SaleForm()
 
-    return render(request, 'sales.html', {'form': form})
+    return render(request, 'inventory/sales.html', {'form': form})
 
 from decimal import Decimal
 
@@ -145,7 +145,7 @@ def balance_sheet(request):
         'total_due': total_due,
     }
 
-    return render(request, 'balance_sheet.html', context)
+    return render(request, 'inventory/balance_sheet.html', context)
 
 def sales_report(request):
     start_date = request.GET.get('start')
@@ -158,7 +158,7 @@ def sales_report(request):
 
     total_amount = sales.aggregate(total=Sum('total_amount'))['total'] or 0
 
-    return render(request, 'sales_report.html', {
+    return render(request, 'inventory/sales_report.html', {
         'sales': sales,
         'total_amount': total_amount
     })
@@ -175,7 +175,7 @@ def purchase_report(request):
 
     total_amount = purchases.aggregate(total=Sum('total_amount'))['total'] or 0
 
-    return render(request, 'purchase_report.html', {
+    return render(request, 'inventory/purchase_report.html', {
         'purchases': purchases,
         'total_amount': total_amount
     })
@@ -224,7 +224,7 @@ def customer_report(request):
         'balance': balance
     }
 
-    return render(request, 'customer_report.html', context)
+    return render(request, 'inventory/customer_report.html', context)
 @login_required
 def add_feed(request):
     if request.method == "POST":
@@ -235,7 +235,7 @@ def add_feed(request):
     else:
         form = FeedForm()
 
-    return render(request, 'add_feed.html', {'form': form})
+    return render(request, 'inventory/add_feed.html', {'form': form})
 
 @login_required
 def feed_list(request):
@@ -254,7 +254,7 @@ def update_feed(request, pk):
     else:
         form = FeedForm(instance=feed)
 
-    return render(request, 'add_feed.html', {'form': form})
+    return render(request, 'inventory/add_feed.html', {'form': form})
 @login_required
 def delete_feed(request, pk):
     feed = get_object_or_404(Feed, pk=pk)
@@ -263,11 +263,11 @@ def delete_feed(request, pk):
         feed.delete()
         return redirect('feed_list')
 
-    return render(request, 'delete_feed.html', {'feed': feed})
+    return render(request, 'inventory/delete_feed.html', {'feed': feed})
 
 @login_required
 def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')
+    return render(request, 'inventory/admin_dashboard.html')
 
 @login_required
 def add_customer(request):
@@ -283,7 +283,7 @@ def add_customer(request):
 @login_required
 def customer_list(request):
     customers = Customer.objects.all().order_by('-id')
-    return render(request, 'customer_list.html', {'customers': customers})
+    return render(request, 'inventory/customer_list.html', {'customers': customers})
 
 @login_required
 def update_customer(request, pk):
@@ -297,7 +297,7 @@ def update_customer(request, pk):
     else:
         form = CustomerForm(instance=customer)
 
-    return render(request, 'add_customer.html', {'form': form})
+    return render(request, 'inventory/add_customer.html', {'form': form})
 @login_required
 def delete_customer(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
@@ -306,4 +306,4 @@ def delete_customer(request, pk):
         customer.delete()
         return redirect('customer_list')
 
-    return render(request, 'delete_customer.html', {'customer': customer})
+    return render(request, 'inventory/delete_customer.html', {'customer': customer})
